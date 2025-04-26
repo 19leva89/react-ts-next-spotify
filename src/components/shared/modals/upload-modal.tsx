@@ -1,6 +1,5 @@
 'use client'
 
-import uniqid from 'uniqid'
 import { toast } from 'sonner'
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
@@ -33,6 +32,7 @@ export const UploadModal = () => {
 	const onChange = (open: boolean) => {
 		if (!open) {
 			reset()
+
 			uploadModal.onClose()
 		}
 	}
@@ -42,27 +42,27 @@ export const UploadModal = () => {
 			setIsLoading(true)
 
 			const imageFile = values.image?.[0]
-			const songFile = values.track?.[0]
+			const trackFile = values.track?.[0]
 
-			if (!imageFile || !songFile || !user) {
-				toast.error('Missing Fields.')
+			if (!imageFile || !trackFile || !user) {
+				toast.error('Missing fields')
 
 				return
 			}
 
-			const uniqueId = uniqid()
+			const uniqueId = Math.random().toString(36).substring(2, 10)
 
 			// Upload Track
-			const { data: songData, error: songError } = await supabase.storage
+			const { data: trackData, error: trackError } = await supabase.storage
 				.from('tracks')
-				.upload(`track-${values.title}-${uniqueId}`, songFile, {
+				.upload(`track-${values.title}-${uniqueId}`, trackFile, {
 					cacheControl: '3600',
 					upsert: false,
 				})
 
-			if (songError) {
+			if (trackError) {
 				setIsLoading(false)
-				return toast.error('Track Upload Failed.')
+				return toast.error('Track upload failed')
 			}
 
 			// Upload Image
@@ -75,7 +75,7 @@ export const UploadModal = () => {
 
 			if (imageError) {
 				setIsLoading(false)
-				return toast.error('Image Upload Failed.')
+				return toast.error('Image upload failed')
 			}
 
 			const { error: supabaseError } = await supabase.from('tracks').insert({
@@ -83,7 +83,7 @@ export const UploadModal = () => {
 				title: values.title,
 				author: values.author,
 				image_path: imageData.path,
-				song_path: songData.path,
+				track_path: trackData.path,
 			})
 
 			if (supabaseError) {
@@ -93,11 +93,11 @@ export const UploadModal = () => {
 
 			router.refresh()
 			setIsLoading(false)
-			toast.success('Track Created!')
+			toast.success('Track created!')
 			reset()
 			uploadModal.onClose()
 		} catch (error) {
-			toast.error('Something Went Wrong.')
+			toast.error('Something went wrong')
 		} finally {
 			setIsLoading(false)
 		}
@@ -105,8 +105,8 @@ export const UploadModal = () => {
 
 	return (
 		<Modal
-			title="Add a Track"
-			description="Upload an MP3 File."
+			title="Add a track"
+			description="Upload an mp3 file"
 			isOpen={uploadModal.isOpen}
 			onChange={onChange}
 		>
@@ -114,36 +114,51 @@ export const UploadModal = () => {
 				<Input
 					id="title"
 					disabled={isLoading}
-					placeholder="Track Title"
+					placeholder="Track title"
+					className="border-neutral-700 bg-neutral-700 text-white placeholder:text-neutral-400"
 					{...register('title', { required: true })}
 				/>
+
 				<Input
 					id="author"
 					disabled={isLoading}
-					placeholder="Author"
+					placeholder="Track author"
+					className="border-neutral-700 bg-neutral-700 text-white placeholder:text-neutral-400"
 					{...register('author', { required: true })}
 				/>
+
 				<div>
-					<div className="pb-1">Select a Track File.</div>
+					<div className="pb-1 text-white">Select a track file</div>
+
 					<Input
 						id="track"
 						type="file"
 						disabled={isLoading}
 						accept=".mp3"
+						className="border-neutral-700 bg-neutral-700 text-neutral-400 file:text-neutral-400"
 						{...register('track', { required: true })}
 					/>
 				</div>
+
 				<div>
-					<div className="pb-1">Select an Image.</div>
+					<div className="pb-1 text-white">Select an image</div>
+
 					<Input
 						id="image"
 						type="file"
 						disabled={isLoading}
 						accept="image/*"
+						className="border-neutral-700 bg-neutral-700 text-neutral-400 file:text-neutral-400"
 						{...register('image', { required: true })}
 					/>
 				</div>
-				<Button disabled={isLoading} type="submit">
+
+				<Button
+					variant="secondary"
+					disabled={isLoading}
+					type="submit"
+					className="bg-green-500 hover:bg-neutral-500 hover:text-white"
+				>
 					Create
 				</Button>
 			</form>

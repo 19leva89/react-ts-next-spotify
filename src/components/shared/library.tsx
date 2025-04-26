@@ -3,17 +3,31 @@
 import { ListMusicIcon, PlusIcon } from 'lucide-react'
 
 import { Track } from '@/app/types'
+import { useUser } from '@/hooks/use-user'
 import { MediaItem } from '@/components/shared'
+import { useAuthModal } from '@/hooks/use-auth-modal'
 import { useUploadModal } from '@/hooks/use-upload-modal'
+import { useSubscribeModal } from '@/hooks/use-subscribe-modal'
 
 interface Props {
 	tracks: Track[]
 }
 
 export const Library = ({ tracks }: Props) => {
+	const authModal = useAuthModal()
 	const uploadModal = useUploadModal()
+	const subscribeModal = useSubscribeModal()
+
+	const { user, subscription } = useUser()
+
+	// const onPlay = useOnPlay(tracks)
 
 	const onClick = () => {
+		if (!user) return authModal.onOpen()
+
+		// Only subscribed user can upload tracks
+		// if (!subscription) return subscribeModal.onOpen()
+
 		return uploadModal.onOpen()
 	}
 
