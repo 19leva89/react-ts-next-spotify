@@ -27,7 +27,7 @@ export default async function RootLayout({ children }: PropsWithChildren) {
 	// })
 
 	return (
-		<html lang="en">
+		<html lang="en" suppressHydrationWarning>
 			<body className={font.className}>
 				<Toaster position="bottom-right" expand={false} richColors />
 

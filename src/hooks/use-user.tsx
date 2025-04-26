@@ -35,6 +35,7 @@ export const UserContextProvider = ({ children }: PropsWithChildren) => {
 				setAccessToken(null)
 			} else {
 				setUser(user)
+
 				const session = await supabase.auth.getSession()
 				setAccessToken(session.data.session?.access_token ?? null)
 			}
@@ -48,16 +49,30 @@ export const UserContextProvider = ({ children }: PropsWithChildren) => {
 	useEffect(() => {
 		const fetchUserData = async () => {
 			if (user) {
-				const { data: userDetails } = await supabase.from('users').select('*').single()
+				// Fetch user details
+				const { data: userDetails, error: userDetailsError } = await supabase
+					.from('users')
+					.select('*')
+					.eq('id', user.id)
+					.single()
 
-				const { data: subscription } = await supabase
+				if (userDetailsError) {
+					console.error('Error fetching user details:', userDetailsError)
+				}
+
+				// Fetch subscription - modified to handle empty results
+				const { data: subscriptionData } = await supabase
 					.from('subscriptions')
 					.select('*, prices(*, products(*))')
+					.eq('user_id', user.id)
 					.in('status', ['trialing', 'active'])
 					.single()
 
-				setUserDetails(userDetails as unknown as UserDetails)
-				setSubscription(subscription as Subscription)
+				// Handle subscription data
+				const activeSubscription = subscriptionData ? subscriptionData : null
+
+				setUserDetails(userDetails as UserDetails)
+				setSubscription(activeSubscription as Subscription)
 			} else {
 				setUserDetails(null)
 				setSubscription(null)
