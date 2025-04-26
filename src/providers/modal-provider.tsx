@@ -1,15 +1,10 @@
 'use client'
 
-import { useEffect, useState } from 'react'
-
+import { useClient } from '@/hooks/use-client'
 import { UploadModal } from '@/components/shared'
 
 export const ModalProvider = () => {
-	const [isMounted, setIsMounted] = useState<boolean>(false)
-
-	useEffect(() => {
-		setIsMounted(true)
-	}, [])
+	const { isMounted } = useClient()
 
 	if (!isMounted) return null
 

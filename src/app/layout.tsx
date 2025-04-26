@@ -5,7 +5,7 @@ import { Figtree } from 'next/font/google'
 import { Toaster } from '@/components/ui'
 // import { getAllTracks } from '@/app/actions'
 import { Player, Sidebar } from '@/components/shared'
-import { ModalProvider } from '@/components/shared/providers'
+import { ModalProvider, SupabaseProvider, UserProvider } from '@/providers'
 
 import './globals.css'
 
@@ -31,11 +31,15 @@ export default async function RootLayout({ children }: PropsWithChildren) {
 			<body className={font.className}>
 				<Toaster position="bottom-right" expand={false} richColors />
 
-				<ModalProvider />
+				<SupabaseProvider>
+					<UserProvider>
+						<ModalProvider />
 
-				<Sidebar tracks={[]}>{children}</Sidebar>
+						<Sidebar tracks={[]}>{children}</Sidebar>
 
-				<Player />
+						<Player />
+					</UserProvider>
+				</SupabaseProvider>
 			</body>
 		</html>
 	)
