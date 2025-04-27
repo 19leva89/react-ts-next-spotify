@@ -7,7 +7,7 @@ import { ChangeEvent, useEffect, useState } from 'react'
 import { usePlayer } from '@/hooks/use-player'
 import { Button, Input } from '@/components/ui'
 import { BACKEND_API_URL } from '@/lib/constants'
-import { deleteTrackFile, uploadTrackFile } from '@/app/actions'
+import {} from '@/app/actions'
 
 const MAX_FILE_SIZE = 20 * 1024 * 1024 // 20MB
 const ALLOWED_TYPES = ['audio/mpeg', 'audio/wav', 'audio/x-wav']
@@ -52,32 +52,27 @@ export const AudioUpload = ({ trackId, initialAudioUrl, disabled }: Props) => {
 	}
 
 	const handleUpload = async () => {
-		if (!audioFile) return
-
-		try {
-			await uploadTrackFile(trackId, audioFile)
-
-			setAudioUrl(URL.createObjectURL(audioFile))
-			player.clearTrack()
-
-			toast.success('Audio uploaded successfully!')
-		} catch (error: any) {
-			toast.error(error.message || 'Failed to upload audio')
-		}
+		// if (!audioFile) return
+		// try {
+		// 	await uploadTrackFile(trackId, audioFile)
+		// 	setAudioUrl(URL.createObjectURL(audioFile))
+		// 	player.clearTrack()
+		// 	toast.success('Audio uploaded successfully!')
+		// } catch (error: any) {
+		// 	toast.error(error.message || 'Failed to upload audio')
+		// }
 	}
 
 	const handleRemoveAudio = async () => {
-		try {
-			await deleteTrackFile(trackId, audioFile!)
-
-			setAudioFile(null)
-			setAudioUrl('')
-			player.clearTrack()
-
-			toast.success('Audio removed successfully!')
-		} catch (error: any) {
-			toast.error(error.message || 'Failed to remove audio')
-		}
+		// try {
+		// 	await deleteTrackFile(trackId, audioFile!)
+		// 	setAudioFile(null)
+		// 	setAudioUrl('')
+		// 	player.clearTrack()
+		// 	toast.success('Audio removed successfully!')
+		// } catch (error: any) {
+		// 	toast.error(error.message || 'Failed to remove audio')
+		// }
 	}
 
 	return (

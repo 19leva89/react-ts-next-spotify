@@ -1,12 +1,13 @@
 import Stripe from 'stripe'
 
 export interface Track {
-	id: string
+	id: number
 	user_id: string
 	author: string
 	title: string
 	track_path: string
 	image_path: string
+	created_at?: string
 }
 
 export interface UserDetails {

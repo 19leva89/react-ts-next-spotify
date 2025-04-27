@@ -2,10 +2,12 @@
 
 import { Box } from '@/components/shared'
 
-export const Error = () => {
+const ErrorPage = () => {
 	return (
 		<Box className="h-full flex items-center justify-center">
-			<div className="text-neutral-400">Something Went Wrong</div>
+			<div className="text-neutral-400">Something went wrong</div>
 		</Box>
 	)
 }
+
+export default ErrorPage

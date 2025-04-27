@@ -1,39 +1,11 @@
-import { getAllTracks } from '@/app/actions'
-import { Header, ListItem, PaginationClient } from '@/components/shared'
-import { TrackFilters, TrackListWrapper } from '@/app/(site)/_components'
+import { getTracks } from '@/app/actions'
+import { Header, ListItem } from '@/components/shared'
+import { PageContent } from '@/app/(site)/_components/page-content'
 
-export const revalidate = 0
+export const dynamic = 'force-dynamic'
 
-type Props = {
-	searchParams: Promise<{
-		page?: string
-		sort?: string
-		order?: 'asc' | 'desc'
-		search?: string
-		genre?: string
-		artist?: string
-	}>
-}
-
-const HomePage = async ({ searchParams }: Props) => {
-	const params = await searchParams
-
-	const currentPage = Number(params?.page || 1)
-	const sortField = params?.sort || 'createdAt'
-	const sortOrder = params?.order || 'desc'
-	const searchQuery = params?.search || ''
-	const sortGenre = params?.genre || ''
-	const sortArtist = params?.artist || ''
-
-	// const { data: tracks, meta } = await getAllTracks({
-	// 	page: currentPage,
-	// 	limit: 16,
-	// 	sort: sortField,
-	// 	order: sortOrder,
-	// 	search: searchQuery,
-	// 	genre: sortGenre,
-	// 	artist: sortArtist,
-	// })
+const HomePage = async () => {
+	const tracks = await getTracks()
 
 	return (
 		<div className="size-full rounded-lg bg-neutral-900 overflow-hidden overflow-y-auto">
@@ -53,7 +25,7 @@ const HomePage = async ({ searchParams }: Props) => {
 				</div>
 			</div>
 
-			<TrackListWrapper tracks={[]} />
+			<PageContent tracks={tracks} />
 		</div>
 	)
 }

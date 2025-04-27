@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 
 import { Track } from '@/app/types'
-import { getTrackById } from '@/app/actions'
+// import { getTrackById } from '@/app/actions'
 
 export const useGetTrackById = (id: string) => {
 	const [track, setTrack] = useState<Track | null>(null)
@@ -14,8 +14,8 @@ export const useGetTrackById = (id: string) => {
 				setIsLoading(true)
 				setError(null)
 
-				const fetchedTrack = await getTrackById(id)
-				setTrack(fetchedTrack)
+				// const fetchedTrack = await getTrackById(id)
+				// setTrack(fetchedTrack)
 			} catch (error) {
 				console.error('Error fetching track:', error)
 

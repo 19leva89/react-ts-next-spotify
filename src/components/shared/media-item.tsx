@@ -3,14 +3,22 @@
 import Image from 'next/image'
 
 import { Track } from '@/app/types'
+import { useLoadImage } from '@/hooks/use-load-image'
 
 interface Props {
 	data: Track
-	onClick?: (id: string) => void
+	onClick?: (id: number) => void
 }
 
 export const MediaItem = ({ data, onClick }: Props) => {
-	const handleClick = () => {}
+	// const player = usePlayer()
+	const imageUrl = useLoadImage(data)
+
+	const handleClick = () => {
+		if (onClick) return onClick(data.id)
+
+		// return player.setId(data.id)
+	}
 
 	return (
 		<div
@@ -19,9 +27,9 @@ export const MediaItem = ({ data, onClick }: Props) => {
 		>
 			<div className="relative rounded-md min-h-[48px] min-w-[48px] overflow-hidden">
 				<Image
+					src={imageUrl || '/img/no-cover-image.png'}
+					alt="Media item image"
 					fill
-					src={data.coverImage || '/img/no-cover-image.png'}
-					alt="Media Item Image"
 					className="object-cover"
 				/>
 			</div>
@@ -29,7 +37,7 @@ export const MediaItem = ({ data, onClick }: Props) => {
 			<div className="flex flex-col gap-y-1 overflow-hidden">
 				<p className="text-white truncate">{data.title}</p>
 
-				<p className="text-neutral-400 text-sm truncate">{data.artist}</p>
+				<p className="text-neutral-400 text-sm truncate">{data.author}</p>
 			</div>
 		</div>
 	)

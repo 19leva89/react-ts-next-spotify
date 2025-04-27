@@ -1,99 +1,129 @@
-import { request } from '@/lib/api'
-import type { AddTrackInput, GetAllTracksParams, Track } from '@/app/types'
+import { createClient } from '@/utils/supabase/server'
+import type { ProductWithPrice, Track } from '@/app/types'
 
-export const getAllGenres = async (): Promise<string[]> => {
-	return await request<string[]>({
-		url: '/api/genres',
-		method: 'GET',
-	})
+export const getTracks = async (): Promise<Track[]> => {
+	const supabase = await createClient()
+
+	const { data, error } = await supabase.from('tracks').select('*').order('created_at', { ascending: false })
+
+	if (error) {
+		console.error('DB error:', error)
+
+		return []
+	}
+
+	// Type assertion with validation
+	if (!data) return []
+
+	return data as Track[]
 }
 
-export const getAllTracks = async ({
-	page = 1,
-	limit = 10,
-	sort,
-	order,
-	search,
-	genre,
-	artist,
-}: GetAllTracksParams): Promise<{
-	data: Track[]
-	meta: { total: number; page: number; totalPages: number }
-}> => {
-	const response = await request<{
-		data: Track[]
-		meta: { total: number; page: number; totalPages: number }
-	}>({
-		url: '/api/tracks',
-		method: 'GET',
-		params: { page, limit, sort, order, search, genre, artist },
-	})
+export const getTracksByTitle = async (title: string): Promise<Track[]> => {
+	const supabase = await createClient()
 
-	return response
+	if (!title) {
+		const allTracks = await getTracks()
+		return allTracks
+	}
+
+	const { data, error } = await supabase
+		.from('tracks')
+		.select('*')
+		.ilike('title', `%${title}%`)
+		.order('created_at', { ascending: false })
+
+	if (error) {
+		console.error('DB error:', error)
+
+		return []
+	}
+
+	// Type assertion with validation
+	if (!data) return []
+
+	return data as Track[]
 }
 
-export const addTrack = async (input: AddTrackInput): Promise<Track> => {
-	return await request<Track>({
-		url: '/api/tracks',
-		method: 'POST',
-		data: input,
-	})
+export const getTracksByUserId = async (): Promise<Track[]> => {
+	const supabase = await createClient()
+
+	const {
+		data: { user },
+		error: authError,
+	} = await supabase.auth.getUser()
+
+	if (authError || !user?.id) {
+		console.error('Authentication error:', authError)
+		return []
+	}
+
+	const { data, error } = await supabase
+		.from('tracks')
+		.select('*')
+		.eq('user_id', user.id)
+		.order('created_at', { ascending: false })
+
+	if (error) {
+		console.error('DB error:', error)
+
+		return []
+	}
+
+	// Type assertion with validation
+	if (!data) return []
+
+	return data as Track[]
 }
 
-export const getTrackById = async (id: string): Promise<Track> => {
-	return await request<Track>({
-		url: `/api/tracks/${id}`,
-		method: 'GET',
-	})
+export const getLikedTracks = async (): Promise<Track[]> => {
+	const supabase = await createClient()
+
+	const {
+		data: { user },
+		error: authError,
+	} = await supabase.auth.getUser()
+
+	if (authError || !user?.id) {
+		console.error('Authentication error:', authError)
+		return []
+	}
+
+	const { data, error } = await supabase
+		.from('liked_tracks')
+		.select('*, tracks(*)')
+		.eq('user_id', user.id)
+		.order('created_at', { ascending: false })
+
+	if (error) {
+		console.error(error)
+
+		return []
+	}
+
+	if (!data) return []
+
+	return data as unknown as Track[]
 }
 
-export const updateTrackById = async (id: string, input: Partial<AddTrackInput>): Promise<Track> => {
-	return await request<Track>({
-		url: `/api/tracks/${id}`,
-		method: 'PUT',
-		data: input,
-	})
-}
+export const getActiveProductsWithPrices = async (): Promise<ProductWithPrice[]> => {
+	const supabase = await createClient()
 
-export const removeTrack = async (id: string): Promise<void> => {
-	await request({
-		url: `/api/tracks/${id}`,
-		method: 'DELETE',
-	})
-}
+	const { data, error } = await supabase
+		.from('products')
+		.select('*, prices(*)')
+		.eq('active', true)
+		.eq('prices.active', true)
+		.order('metadata->index')
+		.order('unit_amount', { referencedTable: 'prices' })
 
-export const removeTracks = async (ids: string[]): Promise<void> => {
-	await request({
-		url: '/api/tracks/delete',
-		method: 'POST',
-		data: { ids },
-	})
-}
+	if (error) {
+		console.error('DB error:', error)
 
-export const uploadTrackFile = async (id: string, file: File): Promise<void> => {
-	const formData = new FormData()
-	formData.append('file', file)
+		return []
+	}
 
-	await request({
-		url: `/api/tracks/${id}/upload`,
-		method: 'POST',
-		data: formData,
-		headers: {
-			'Content-Type': 'multipart/form-data',
-		},
-	})
-}
+	// Type assertion with validation
+	if (!data) return []
 
-export const deleteTrackFile = async (id: string, file: File): Promise<void> => {
-	const formData = new FormData()
-	formData.append('file', file)
-
-	await request({
-		url: `/api/tracks/${id}/file`,
-		method: 'DELETE',
-		data: formData,
-		headers: {
-			'Content-Type': 'multipart/form-data',
-		},
-	})
+	return data as ProductWithPrice[]
 }

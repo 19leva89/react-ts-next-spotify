@@ -9,7 +9,9 @@ import { useDebounce } from '@/hooks/use-debounce'
 
 export const SearchInput = () => {
 	const router = useRouter()
+
 	const [value, setValue] = useState<string>('')
+
 	const debounceValue = useDebounce<string>(value, 500)
 
 	useEffect(() => {
@@ -27,9 +29,10 @@ export const SearchInput = () => {
 
 	return (
 		<Input
-			placeholder="What do you want to listen to?"
 			value={value}
+			placeholder="What do you want to listen to?"
 			onChange={(e) => setValue(e.target.value)}
+			className="text-white"
 		/>
 	)
 }

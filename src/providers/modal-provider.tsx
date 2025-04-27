@@ -8,7 +8,7 @@ interface Props {
 	products: ProductWithPrice[]
 }
 
-export const ModalProvider = () => {
+export const ModalProvider = ({ products }: Props) => {
 	const { isMounted } = useClient()
 
 	if (!isMounted) return null

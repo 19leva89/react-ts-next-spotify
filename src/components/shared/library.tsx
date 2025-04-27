@@ -49,7 +49,7 @@ export const Library = ({ tracks }: Props) => {
 
 			<div className="flex flex-col gap-y-2 mt-4 px-3">
 				{tracks.map((track) => (
-					<MediaItem onClick={() => {}} key={track.id} data={track} />
+					<MediaItem key={track.id} data={track} onClick={() => {}} />
 				))}
 			</div>
 		</div>

@@ -14,7 +14,7 @@ import {
 	AlertDialogTitle,
 } from '@/components/ui'
 import { Track } from '@/app/types'
-import { removeTrack } from '@/app/actions'
+// import { removeTrack } from '@/app/actions'
 
 interface Props {
 	track: Track
@@ -27,7 +27,7 @@ export const DeleteTrack = ({ track, isOpen, onClose }: Props) => {
 
 	const handleDelete = async () => {
 		try {
-			await removeTrack(track.id)
+			// await removeTrack(track.id)
 
 			toast.success('Track deleted successfully')
 

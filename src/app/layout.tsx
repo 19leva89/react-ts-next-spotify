@@ -3,9 +3,9 @@ import { PropsWithChildren } from 'react'
 import { Figtree } from 'next/font/google'
 
 import { Toaster } from '@/components/ui'
-// import { getAllTracks } from '@/app/actions'
 import { Player, Sidebar } from '@/components/shared'
 import { ModalProvider, SupabaseProvider, UserProvider } from '@/providers'
+import { getActiveProductsWithPrices, getTracksByUserId } from '@/app/actions'
 
 import './globals.css'
 
@@ -16,15 +16,11 @@ export const metadata: Metadata = {
 	description: 'Listen to music anywhere',
 }
 
-export const revalidate = 0
+export const dynamic = 'force-dynamic'
 
 export default async function RootLayout({ children }: PropsWithChildren) {
-	// const { data: tracks, meta } = await getAllTracks({
-	// 	page: 1,
-	// 	limit: 10,
-	// 	sort: 'title',
-	// 	order: 'asc',
-	// })
+	const userTracks = await getTracksByUserId()
+	const products = await getActiveProductsWithPrices()
 
 	return (
 		<html lang="en" suppressHydrationWarning>
@@ -33,9 +29,9 @@ export default async function RootLayout({ children }: PropsWithChildren) {
 
 				<SupabaseProvider>
 					<UserProvider>
-						<ModalProvider />
+						<ModalProvider products={products} />
 
-						<Sidebar tracks={[]}>{children}</Sidebar>
+						<Sidebar tracks={userTracks}>{children}</Sidebar>
 
 						<Player />
 					</UserProvider>

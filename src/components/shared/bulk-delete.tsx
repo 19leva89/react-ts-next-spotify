@@ -3,7 +3,7 @@
 import { useRouter } from 'next/navigation'
 
 import { Button } from '@/components/ui'
-import { removeTracks } from '@/app/actions'
+// import { removeTracks } from '@/app/actions'
 
 interface Props {
 	allTrackIds: string[]
@@ -29,7 +29,7 @@ export const BulkDelete = ({
 	}
 
 	const handleDelete = async () => {
-		await removeTracks(selectedIds)
+		// await removeTracks(selectedIds)
 
 		clear()
 		router.refresh()
