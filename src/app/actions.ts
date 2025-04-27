@@ -12,10 +12,7 @@ export const getTracks = async (): Promise<Track[]> => {
 		return []
 	}
 
-	// Type assertion with validation
-	if (!data) return []
-
-	return data as Track[]
+	return (data as Track[]) || []
 }
 
 export const getTracksByTitle = async (title: string): Promise<Track[]> => {
@@ -38,10 +35,7 @@ export const getTracksByTitle = async (title: string): Promise<Track[]> => {
 		return []
 	}
 
-	// Type assertion with validation
-	if (!data) return []
-
-	return data as Track[]
+	return (data as Track[]) || []
 }
 
 export const getTracksByUserId = async (): Promise<Track[]> => {
@@ -69,10 +63,7 @@ export const getTracksByUserId = async (): Promise<Track[]> => {
 		return []
 	}
 
-	// Type assertion with validation
-	if (!data) return []
-
-	return data as Track[]
+	return (data as Track[]) || []
 }
 
 export const getLikedTracks = async (): Promise<Track[]> => {
@@ -102,7 +93,14 @@ export const getLikedTracks = async (): Promise<Track[]> => {
 
 	if (!data) return []
 
-	return data as unknown as Track[]
+	return data.map((item) => ({
+		...item.tracks,
+		user_id: item.user_id,
+		author: item.tracks.author as string,
+		title: item.tracks.title as string,
+		track_path: item.tracks.track_path as string,
+		image_path: item.tracks.image_path as string,
+	}))
 }
 
 export const getActiveProductsWithPrices = async (): Promise<ProductWithPrice[]> => {
@@ -122,8 +120,5 @@ export const getActiveProductsWithPrices = async (): Promise<ProductWithPrice[]>
 		return []
 	}
 
-	// Type assertion with validation
-	if (!data) return []
-
-	return data as ProductWithPrice[]
+	return (data as ProductWithPrice[]) || []
 }

@@ -28,7 +28,7 @@ const formatPrice = (price: Price) => {
 export const SubscribeModal = ({ products }: Props) => {
 	const subscribeModal = useSubscribeModal()
 
-	const { user, isLoading, subscription } = useUser()
+	const { user, subscription, isLoading } = useUser()
 
 	const [priceIdLoading, setPriceIdLoading] = useState<string>()
 

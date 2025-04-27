@@ -21,13 +21,15 @@ export const ListItem = ({ href, image, name }: Props) => {
 	return (
 		<div
 			onClick={onClick}
-			className="relative group flex items-center gap-x-4 pr-4 rounded-md cursor-pointer overflow-hidden bg-neutral-100/10 hover:bg-neutral-100/20 transition"
+			className="relative group flex items-center justify-between gap-x-4 pr-4 rounded-md cursor-pointer overflow-hidden bg-neutral-100/10 hover:bg-neutral-100/20 transition"
 		>
-			<div className="relative min-h-[64px] min-w-[64px]">
-				<Image src={image} alt="LikeImage" className="object-cover" fill />
-			</div>
+			<div className="flex items-center gap-x-4">
+				<div className="relative min-h-[64px] min-w-[64px]">
+					<Image src={image} alt="LikeImage" className="object-cover" fill />
+				</div>
 
-			<p className="py-5 text-white font-medium truncate">{name}</p>
+				<p className="py-5 text-white font-medium truncate">{name}</p>
+			</div>
 
 			<PlayButton />
 		</div>

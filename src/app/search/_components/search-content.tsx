@@ -19,7 +19,7 @@ export const SearchContent = ({ tracks }: Props) => {
 			{tracks.map((track) => (
 				<div key={track.id} className="flex items-center gap-x-4 w-full">
 					<div className="flex-1">
-						<MediaItem data={track} onClick={(id: string) => {}} />
+						<MediaItem data={track} onClick={(id: number) => {}} />
 					</div>
 
 					<LikeButton trackId={track.id} />

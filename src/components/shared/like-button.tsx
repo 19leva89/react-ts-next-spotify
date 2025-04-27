@@ -68,7 +68,7 @@ export const LikeButton = ({ trackId }: Props) => {
 				toast.error(error.message)
 			} else {
 				setIsLiked(true)
-				toast.success('Liked track!')
+				toast.success('Liked!')
 			}
 		}
 
@@ -77,8 +77,11 @@ export const LikeButton = ({ trackId }: Props) => {
 
 	return (
 		<button onClick={handleLike} className="hover:opacity-75 transition">
-			{/* <Icon color={isLiked ? '#22c55e' : 'white'} size={25} /> */}
-			{isLiked ? <HeartIcon fill="black" size={25} /> : <HeartIcon size={25} />}
+			{isLiked ? (
+				<HeartIcon fill="#22c55e" size={25} className="text-[#22c55e]" />
+			) : (
+				<HeartIcon size={25} className="text-white" />
+			)}
 		</button>
 	)
 }
