@@ -15,7 +15,7 @@ export const useOnPlay = (tracks: Track[]) => {
 		if (!user) return authModal.onOpen()
 
 		// UnComment to Only allow subscribed user to play track
-		// if (!subscription) return subscribeModal.onOpen();
+		if (!subscription) return subscribeModal.onOpen()
 
 		player.setId(id)
 

@@ -157,7 +157,7 @@ export const UploadModal = () => {
 					variant="secondary"
 					disabled={isLoading}
 					type="submit"
-					className="bg-green-500 hover:bg-neutral-500 hover:text-white"
+					className="bg-green-500 hover:bg-neutral-500 hover:text-white transition ease-in-out duration-300"
 				>
 					Create
 				</Button>

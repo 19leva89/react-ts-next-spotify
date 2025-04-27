@@ -27,7 +27,7 @@ export const Library = ({ tracks }: Props) => {
 		if (!user) return authModal.onOpen()
 
 		// Only subscribed user can upload tracks
-		// if (!subscription) return subscribeModal.onOpen()
+		if (!subscription) return subscribeModal.onOpen()
 
 		return uploadModal.onOpen()
 	}

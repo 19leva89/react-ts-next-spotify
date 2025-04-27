@@ -66,22 +66,28 @@ export const SubscribeModal = ({ products }: Props) => {
 		}
 	}
 
-	let content = <div className="text-center">No Products Available</div>
+	let content = <div className="text-center text-white">No products available</div>
 
 	if (products.length) {
 		content = (
-			<div>
+			<div className="flex flex-col items-center justify-center gap-y-4">
 				{products.map((product) => {
 					if (!product.prices?.length) {
-						return <div key={product.id}>No Prices Available</div>
+						return (
+							<div key={product.id} className="text-center text-white">
+								No prices available
+							</div>
+						)
 					}
 
 					return product.prices.map((price) => (
 						<Button
 							key={price.id}
+							variant="secondary"
+							size="lg"
 							onClick={() => handleCheckout(price)}
 							disabled={isLoading || price.id === priceIdLoading}
-							className="mb-4"
+							className="rounded-full bg-green-500 hover:bg-neutral-500 hover:text-white transition ease-in-out duration-300"
 						>
 							{`Subscribe for ${formatPrice(price)} a ${price.interval}`}
 						</Button>
@@ -92,12 +98,12 @@ export const SubscribeModal = ({ products }: Props) => {
 	}
 
 	if (subscription) {
-		content = <div className="text-center">Already Subscribed</div>
+		content = <div className="text-center">Already subscribed</div>
 	}
 
 	return (
 		<Modal
-			title="Only for Premium User"
+			title="Only for Premium user"
 			description="Listen to Music with Spotify Premium"
 			isOpen={subscribeModal.isOpen}
 			onChange={onChange}

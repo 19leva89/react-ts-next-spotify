@@ -10,6 +10,7 @@ import { ChevronLeftIcon, ChevronRightIcon, HouseIcon, SearchIcon } from 'lucide
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui'
 import { useUser } from '@/hooks/use-user'
+import { usePlayer } from '@/hooks/use-player'
 import { useAuthModal } from '@/hooks/use-auth-modal'
 
 interface Props {
@@ -18,11 +19,12 @@ interface Props {
 }
 
 export const Header = ({ children, className }: Props) => {
+	const player = usePlayer()
 	const router = useRouter()
 	const supabase = createClient()
 	const authModal = useAuthModal()
 
-	const { user, subscription } = useUser()
+	const { user } = useUser()
 
 	const handleLogout = async () => {
 		try {
@@ -34,6 +36,7 @@ export const Header = ({ children, className }: Props) => {
 				return
 			}
 
+			player.reset()
 			router.refresh()
 
 			toast.success('Logged out successfully!')
