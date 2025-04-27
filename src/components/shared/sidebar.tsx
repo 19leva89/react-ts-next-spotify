@@ -37,7 +37,7 @@ export const Sidebar = ({ children, tracks }: Props) => {
 	)
 
 	return (
-		<div className={cn('flex h-full', player.currentTrack && 'h-[calc(100%-120px)]')}>
+		<div className={cn('flex h-full', player.activeId && 'h-[calc(100%-80px)]')}>
 			<div className="hidden md:flex flex-col gap-y-2 h-full w-[300px] p-2 bg-black">
 				<Box>
 					<div className="flex flex-col gap-y-4 px-5 py-4">

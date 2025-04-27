@@ -1,15 +1,15 @@
 'use client'
 
 import { Track } from '@/app/types'
+import { useOnPlay } from '@/hooks/use-on-play'
 import { LikeButton, MediaItem } from '@/components/shared'
-// import useOnPlay from "@/hooks/useOnPlay";
 
 interface Props {
 	tracks: Track[]
 }
 
 export const SearchContent = ({ tracks }: Props) => {
-	// const onPlay = useOnPlay(tracks)
+	const onPlay = useOnPlay(tracks)
 
 	if (tracks.length === 0)
 		return <div className="flex flex-col gap-y-2 w-full px-6 text-neutral-400">No tracks found</div>
@@ -19,7 +19,7 @@ export const SearchContent = ({ tracks }: Props) => {
 			{tracks.map((track) => (
 				<div key={track.id} className="flex items-center gap-x-4 w-full">
 					<div className="flex-1">
-						<MediaItem data={track} onClick={(id: number) => {}} />
+						<MediaItem data={track} onClick={(id: number) => onPlay(id)} />
 					</div>
 
 					<LikeButton trackId={track.id} />

@@ -1,34 +1,34 @@
-import { useEffect, useState } from 'react'
+import { toast } from 'sonner'
+import { useEffect, useMemo, useState } from 'react'
 
 import { Track } from '@/app/types'
-// import { getTrackById } from '@/app/actions'
+import { createClient } from '@/utils/supabase/client'
 
-export const useGetTrackById = (id: string) => {
-	const [track, setTrack] = useState<Track | null>(null)
-	const [error, setError] = useState<string | null>(null)
-	const [isLoading, setIsLoading] = useState<boolean>(true)
+export const useGetTrackById = (id?: number) => {
+	const supabase = createClient()
+
+	const [isLoading, setIsLoading] = useState<boolean>(false)
+	const [track, setTrack] = useState<Track | undefined>(undefined)
 
 	useEffect(() => {
+		if (!id) return
+
+		setIsLoading(true)
+
 		const fetchTrack = async () => {
-			try {
-				setIsLoading(true)
-				setError(null)
+			const { data, error } = await supabase.from('tracks').select('*').eq('id', id).single()
 
-				// const fetchedTrack = await getTrackById(id)
-				// setTrack(fetchedTrack)
-			} catch (error) {
-				console.error('Error fetching track:', error)
-
-				setError('Failed to fetch track')
-			} finally {
+			if (error) {
 				setIsLoading(false)
+				return toast.error(error.message)
 			}
+
+			setTrack(data as Track)
+			setIsLoading(false)
 		}
 
-		if (id) {
-			fetchTrack()
-		}
-	}, [id])
+		fetchTrack()
+	}, [id, supabase])
 
-	return { track, isLoading, error }
+	return useMemo(() => ({ isLoading, track }), [isLoading, track])
 }

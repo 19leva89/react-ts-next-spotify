@@ -1,34 +1,21 @@
 'use client'
 
-import { XIcon } from 'lucide-react'
-
-import { Button } from '@/components/ui'
 import { usePlayer } from '@/hooks/use-player'
-import { Wavesurfer } from '@/components/shared'
-import { BACKEND_API_URL } from '@/lib/constants'
+import { PlayerContent } from '@/components/shared'
+import { useLoadTrackUrl } from '@/hooks/use-load-track-url'
 import { useGetTrackById } from '@/hooks/use-get-track-by-id'
 
 export const Player = () => {
 	const player = usePlayer()
-	const { track } = useGetTrackById(player.currentTrack?.slug || '')
+	const { track } = useGetTrackById(player.activeId)
 
-	const fullUrl = `${BACKEND_API_URL}/files/${track?.audioFile}`
+	const trackUrl = useLoadTrackUrl(track!)
 
-	if (!player || !fullUrl || !player.currentTrack) return null
+	if (!track || !trackUrl || !player.activeId) return null
 
 	return (
-		<div className="fixed w-full h-30 bg-black">
-			<Button variant="link" onClick={player.clearTrack} className="absolute -top-1 right-1">
-				<XIcon className="size-4 text-white" />
-			</Button>
-
-			<div className="flex flex-col items-center gap-4">
-				{track ? (
-					<Wavesurfer audioUrl={fullUrl} />
-				) : (
-					<p className="text-sm text-muted-foreground">No audio file found</p>
-				)}
-			</div>
+		<div className="fixed w-full h-20 py-2 px-4 bottom-0 bg-black">
+			<PlayerContent key={trackUrl} track={track} trackUrl={trackUrl} />
 		</div>
 	)
 }

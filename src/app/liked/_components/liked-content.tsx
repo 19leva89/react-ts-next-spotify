@@ -3,9 +3,9 @@
 import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 
-// import useOnPlay from '@/hooks/useOnPlay'
 import { Track } from '@/app/types'
 import { useUser } from '@/hooks/use-user'
+import { useOnPlay } from '@/hooks/use-on-play'
 import { LikeButton, MediaItem } from '@/components/shared'
 
 interface Props {
@@ -13,12 +13,11 @@ interface Props {
 }
 
 export const LikedContent = ({ tracks }: Props) => {
-	console.log('tracks', tracks)
 	const router = useRouter()
 
 	const { user, isLoading } = useUser()
 
-	// const onPlay = useOnPlay(tracks)
+	const onPlay = useOnPlay(tracks)
 
 	useEffect(() => {
 		if (!isLoading && !user) router.replace('/')
@@ -32,7 +31,7 @@ export const LikedContent = ({ tracks }: Props) => {
 			{tracks.map((track) => (
 				<div key={track.id} className="flex items-center gap-x-4 w-full">
 					<div className="flex-1">
-						<MediaItem data={track} onClick={(id: number) => {}} />
+						<MediaItem data={track} onClick={(id: number) => onPlay(id)} />
 					</div>
 
 					<LikeButton trackId={track.id} />

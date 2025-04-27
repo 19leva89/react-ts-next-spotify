@@ -2,14 +2,17 @@
 
 import { Track } from '@/app/types'
 import { TrackItem } from '@/components/shared'
+import { useOnPlay } from '@/hooks/use-on-play'
 
 interface Props {
 	tracks: Track[]
 }
 
 export const PageContent = ({ tracks }: Props) => {
+	const onPlay = useOnPlay(tracks)
+
 	if (!Array.isArray(tracks) || tracks.length === 0) {
-		return <div className="mx-6 mt-4 text-neutral-400">No Tracks Available</div>
+		return <div className="mx-6 mt-4 text-neutral-400">No tracks available</div>
 	}
 
 	return (
@@ -17,10 +20,10 @@ export const PageContent = ({ tracks }: Props) => {
 			{tracks.map((track) => (
 				<TrackItem
 					key={track.id}
-					onClick={(id: string) => {
-						// onPlay(id)
-					}}
 					data={track}
+					onClick={(id: number) => {
+						onPlay(id)
+					}}
 				/>
 			))}
 		</div>

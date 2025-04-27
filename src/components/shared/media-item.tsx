@@ -3,6 +3,7 @@
 import Image from 'next/image'
 
 import { Track } from '@/app/types'
+import { usePlayer } from '@/hooks/use-player'
 import { useLoadImage } from '@/hooks/use-load-image'
 
 interface Props {
@@ -11,13 +12,13 @@ interface Props {
 }
 
 export const MediaItem = ({ data, onClick }: Props) => {
-	// const player = usePlayer()
+	const player = usePlayer()
 	const imageUrl = useLoadImage(data)
 
 	const handleClick = () => {
 		if (onClick) return onClick(data.id)
 
-		// return player.setId(data.id)
+		return player.setId(data.id)
 	}
 
 	return (

@@ -1,15 +1,17 @@
 import { create } from 'zustand'
 
-import { Track } from '@/app/types'
-
 interface PlayerStore {
-	currentTrack: Track | undefined
-	setTrack: (track: Track) => void
-	clearTrack: () => void
+	ids: number[]
+	activeId?: number
+	setId: (id: number) => void
+	setIds: (ids: number[]) => void
+	reset: () => void
 }
 
 export const usePlayer = create<PlayerStore>((set) => ({
-	currentTrack: undefined,
-	setTrack: (track) => set({ currentTrack: track }),
-	clearTrack: () => set({ currentTrack: undefined }),
+	ids: [],
+	activeId: undefined,
+	setId: (id: number) => set({ activeId: id }),
+	setIds: (ids: number[]) => set({ ids: ids }),
+	reset: () => set({ ids: [], activeId: undefined }),
 }))

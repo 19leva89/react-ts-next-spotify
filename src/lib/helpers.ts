@@ -37,7 +37,7 @@ export const postData = async ({ url, data }: { url: string; data?: { price: Pri
 }
 
 export const toDateTime = (secs: number) => {
-	var time = new Date('1970-01-01T00:30:00Z') // Unix Epoch Start.
+	const time = new Date('1970-01-01T00:30:00Z') // Unix Epoch Start.
 
 	time.setSeconds(secs)
 

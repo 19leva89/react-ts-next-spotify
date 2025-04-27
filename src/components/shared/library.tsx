@@ -5,6 +5,7 @@ import { ListMusicIcon, PlusIcon } from 'lucide-react'
 import { Track } from '@/app/types'
 import { useUser } from '@/hooks/use-user'
 import { MediaItem } from '@/components/shared'
+import { useOnPlay } from '@/hooks/use-on-play'
 import { useAuthModal } from '@/hooks/use-auth-modal'
 import { useUploadModal } from '@/hooks/use-upload-modal'
 import { useSubscribeModal } from '@/hooks/use-subscribe-modal'
@@ -20,7 +21,7 @@ export const Library = ({ tracks }: Props) => {
 
 	const { user, subscription } = useUser()
 
-	// const onPlay = useOnPlay(tracks)
+	const onPlay = useOnPlay(tracks)
 
 	const onClick = () => {
 		if (!user) return authModal.onOpen()
@@ -49,7 +50,7 @@ export const Library = ({ tracks }: Props) => {
 
 			<div className="flex flex-col gap-y-2 mt-4 px-3">
 				{tracks.map((track) => (
-					<MediaItem key={track.id} data={track} onClick={() => {}} />
+					<MediaItem key={track.id} data={track} onClick={(id: number) => onPlay(id)} />
 				))}
 			</div>
 		</div>

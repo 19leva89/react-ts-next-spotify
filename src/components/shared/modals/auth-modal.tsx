@@ -17,7 +17,6 @@ export const AuthModal = () => {
 	const { isOpen, onClose } = useAuthModal()
 
 	const [session, setSession] = useState<Session | null>(null)
-	console.log('session', session)
 
 	const fetchSession = useCallback(async () => {
 		try {
@@ -43,7 +42,7 @@ export const AuthModal = () => {
 		})
 
 		return () => subscription.unsubscribe()
-	}, [fetchSession])
+	}, [fetchSession, supabase.auth])
 
 	useEffect(() => {
 		if (session) {

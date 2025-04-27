@@ -23,7 +23,6 @@ export const Header = ({ children, className }: Props) => {
 	const authModal = useAuthModal()
 
 	const { user, subscription } = useUser()
-	console.log('user', user)
 
 	const handleLogout = async () => {
 		try {

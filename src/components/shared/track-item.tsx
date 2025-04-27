@@ -8,7 +8,7 @@ import { useLoadImage } from '@/hooks/use-load-image'
 
 interface Props {
 	data: Track
-	onClick: (id: string) => void
+	onClick: (id: number) => void
 }
 
 export const TrackItem = ({ data, onClick }: Props) => {
@@ -31,7 +31,7 @@ export const TrackItem = ({ data, onClick }: Props) => {
 			<div className="flex flex-col items-start w-full gap-y-1 p-2">
 				<p className="w-full text-white font-semibold truncate">{data.title}</p>
 
-				<p className="w-full pb-1 text-neutral-400 text-sm truncate">By {data.author}</p>
+				<p className="w-full pb-1 text-neutral-400 text-sm truncate">by {data.author}</p>
 			</div>
 
 			<div className="absolute bottom-20 right-3">
