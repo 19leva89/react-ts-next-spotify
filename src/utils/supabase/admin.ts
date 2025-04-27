@@ -86,7 +86,7 @@ const copyBillingDetailsToCustomer = async (uuid: string, payment_method: Stripe
 
 	if (!name || !phone || !address) return
 
-	//@ts-ignore
+	//@ts-expect-error [Stripe typing issue]
 	await stripe.customers.update(customer, { name, phone, address })
 
 	const { error } = await supabase
@@ -125,11 +125,11 @@ export const manageSubscriptionStatusChange = async (
 		id: subscription.id,
 		user_id: uuid,
 		metadata: subscription.metadata,
-		// @ts-ignore
+		// @ts-expect-error [Stripe typing issue]
 		status: subscription.status,
 		price_id: subscription.items.data[0].price.id,
 		//TODO: check quantity on subscription
-		// @ts-ignore
+		// @ts-expect-error [Stripe typing issue]
 		quantity: subscription.quantity,
 		cancel_at_period_end: subscription.cancel_at_period_end,
 		cancel_at: subscription.cancel_at ? toDateTime(subscription.cancel_at).toISOString() : null,
