@@ -6,7 +6,7 @@ import { Box } from '@/components/shared'
 
 const LoadingPage = () => {
 	return (
-		<Box className="h-full flex items-center justify-center">
+		<Box className="flex items-center justify-center h-full">
 			<BounceLoader color="#22c55e" size={40} />
 		</Box>
 	)
