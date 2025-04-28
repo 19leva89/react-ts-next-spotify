@@ -1,5 +1,39 @@
 This project contains the following technologies
 
+Animation and Interaction:
+- React Spinners (loading indicators)
+- useSound (sound effects)
+
+Core Technologies:
+- React 19
+- TypeScript
+- Next 15 (framework)
+
+Data Fetching and State Management:
+- Axios (sending requests to backend)
+- Zustand (state management)
+
+Database Management:
+- Supabase (serverless PostgreSQL backend)
+
+Form and Validation:
+- React Hook Form (working with forms)
+
+Payment:
+- Stripe (payment service provider)
+
+Styling and UI Frameworks:
+- Lucide React (stylization)
+- Next Themes (using theme switcher)
+- shadcn/ui (stylization)
+- Tailwind CSS (stylization)
+- Sonner (stylization)
+
+Utilities and Libraries:
+- Knip (code analyzer and declutter)
+- QueryString (parse and stringify URL)
+
+
 
 To run the client and server via concurrently:
 terminal powershell -> npm run dev
