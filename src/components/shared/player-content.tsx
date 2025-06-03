@@ -78,55 +78,55 @@ export const PlayerContent = ({ track, trackUrl }: Props) => {
 	}
 
 	return (
-		<div className="grid grid-cols-2 md:grid-cols-3 h-full">
-			<div className="flex justify-start w-full">
-				<div className="flex items-center gap-x-4">
+		<div className='grid h-full grid-cols-2 md:grid-cols-3'>
+			<div className='flex w-full justify-start'>
+				<div className='flex items-center gap-x-4'>
 					<MediaItem data={track} />
 
 					<LikeButton trackId={track.id} />
 				</div>
 			</div>
 
-			<div className="flex md:hidden col-auto items-center justify-end w-full">
+			<div className='col-auto flex w-full items-center justify-end md:hidden'>
 				<div
 					onClick={handlePlay}
-					className="flex items-center justify-center size-10 p-1 rounded-full bg-white cursor-pointer"
+					className='flex size-10 cursor-pointer items-center justify-center rounded-full bg-white p-1'
 				>
-					<Icon size={30} className="text-black" />
+					<Icon size={30} className='text-black' />
 				</div>
 			</div>
 
-			<div className="hidden md:flex items-center justify-center gap-x-6 size-full max-w-180">
+			<div className='hidden size-full max-w-180 items-center justify-center gap-x-6 md:flex'>
 				<SkipBackIcon
 					size={30}
 					onClick={onPlayPrevious}
-					className="text-neutral-400 cursor-pointer hover:text-white transition"
+					className='cursor-pointer text-neutral-400 transition hover:text-white'
 				/>
 
 				<div
 					onClick={handlePlay}
-					className="flex items-center justify-center size-10 p-1 rounded-full bg-white cursor-pointer"
+					className='flex size-10 cursor-pointer items-center justify-center rounded-full bg-white p-1'
 				>
-					<Icon size={30} className="text-black" />
+					<Icon size={30} className='text-black' />
 				</div>
 
 				<SkipForwardIcon
 					size={30}
 					onClick={onPlayNext}
-					className="text-neutral-400 cursor-pointer hover:text-white transition"
+					className='cursor-pointer text-neutral-400 transition hover:text-white'
 				/>
 			</div>
 
-			<div className="hidden md:flex justify-end w-full pr-2">
-				<div className="flex items-center gap-x-2 w-30">
-					<VolumeIcon size={34} onClick={toggleMute} className="text-white cursor-pointer" />
+			<div className='hidden w-full justify-end pr-2 md:flex'>
+				<div className='flex w-30 items-center gap-x-2'>
+					<VolumeIcon size={34} onClick={toggleMute} className='cursor-pointer text-white' />
 
 					<Slider
 						value={[volume]}
 						onValueChange={handleVolumeChange}
 						max={1}
 						step={0.1}
-						className="bg-black cursor-pointer"
+						className='cursor-pointer bg-black'
 					/>
 				</div>
 			</div>

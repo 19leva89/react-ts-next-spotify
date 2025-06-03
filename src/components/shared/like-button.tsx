@@ -76,11 +76,11 @@ export const LikeButton = ({ trackId }: Props) => {
 	}
 
 	return (
-		<button onClick={handleLike} className="hover:opacity-75 transition">
+		<button onClick={handleLike} className='transition hover:opacity-75'>
 			{isLiked ? (
-				<HeartIcon fill="#22c55e" size={25} className="text-[#22c55e]" />
+				<HeartIcon fill='#22c55e' size={25} className='text-[#22c55e]' />
 			) : (
-				<HeartIcon size={25} className="text-white" />
+				<HeartIcon size={25} className='text-white' />
 			)}
 		</button>
 	)

@@ -4,8 +4,8 @@ import { Box } from '@/components/shared'
 
 const ErrorPage = () => {
 	return (
-		<Box className="flex items-center justify-center h-full">
-			<div className="text-neutral-400">Something went wrong</div>
+		<Box className='flex h-full items-center justify-center'>
+			<div className='text-neutral-400'>Something went wrong</div>
 		</Box>
 	)
 }

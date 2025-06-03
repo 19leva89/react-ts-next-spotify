@@ -30,9 +30,9 @@ export const SearchInput = () => {
 	return (
 		<Input
 			value={value}
-			placeholder="What do you want to listen to?"
+			placeholder='What do you want to listen to?'
 			onChange={(e) => setValue(e.target.value)}
-			className="text-white"
+			className='text-white'
 		/>
 	)
 }

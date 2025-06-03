@@ -60,9 +60,9 @@ export const AuthModal = () => {
 	)
 
 	return (
-		<Modal title="Welcome back" description="Log in to your account" isOpen={isOpen} onChange={onChange}>
+		<Modal title='Welcome back' description='Log in to your account' isOpen={isOpen} onChange={onChange}>
 			<Auth
-				theme="dark"
+				theme='dark'
 				providers={['github', 'google']}
 				magicLink
 				supabaseClient={supabase}

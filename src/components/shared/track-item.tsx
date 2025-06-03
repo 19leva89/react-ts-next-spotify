@@ -17,24 +17,24 @@ export const TrackItem = ({ data, onClick }: Props) => {
 	return (
 		<div
 			onClick={() => onClick(data.id)}
-			className="relative group flex flex-col items-center justify-center gap-x-4 p-1 rounded-md overflow-hidden bg-neutral-400/5 cursor-pointer hover:bg-neutral-400/10 transition"
+			className='group relative flex cursor-pointer flex-col items-center justify-center gap-x-4 overflow-hidden rounded-md bg-neutral-400/5 p-1 transition hover:bg-neutral-400/10'
 		>
-			<div className="relative aspect-square size-full rounded-md overflow-hidden">
+			<div className='relative aspect-square size-full overflow-hidden rounded-md'>
 				<Image
 					src={imagePath || '/img/no-cover-image.png'}
-					alt="Album artwork"
+					alt='Album artwork'
 					fill
-					className="object-cover"
+					className='object-cover'
 				/>
 			</div>
 
-			<div className="flex flex-col items-start w-full gap-y-1 p-2">
-				<p className="w-full text-white font-semibold truncate">{data.title}</p>
+			<div className='flex w-full flex-col items-start gap-y-1 p-2'>
+				<p className='w-full truncate font-semibold text-white'>{data.title}</p>
 
-				<p className="w-full pb-1 text-neutral-400 text-sm truncate">by {data.author}</p>
+				<p className='w-full truncate pb-1 text-sm text-neutral-400'>by {data.author}</p>
 			</div>
 
-			<div className="absolute bottom-20 right-3">
+			<div className='absolute right-3 bottom-20'>
 				<PlayButton />
 			</div>
 		</div>
