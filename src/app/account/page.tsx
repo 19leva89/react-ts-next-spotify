@@ -3,10 +3,10 @@ import { AccountContent } from './_components/account-content'
 
 const AccountPage = () => {
 	return (
-		<div className="size-full rounded-lg bg-neutral-900 overflow-hidden overflow-y-auto">
-			<Header className="from-bg-neutral-900">
-				<div className="flex flex-col gap-y-6 mb-2">
-					<h1 className="text-white text-3xl font-semibold">Account settings</h1>
+		<div className='size-full overflow-hidden overflow-y-auto rounded-lg bg-neutral-900'>
+			<Header className='from-bg-neutral-900'>
+				<div className='mb-2 flex flex-col gap-y-6'>
+					<h1 className='text-3xl font-semibold text-white'>Account settings</h1>
 				</div>
 			</Header>
 

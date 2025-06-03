@@ -13,10 +13,10 @@ interface Props {
 export const Modal = ({ title, description, isOpen, children, onChange }: Props) => {
 	return (
 		<Dialog open={isOpen} defaultOpen={isOpen} onOpenChange={onChange}>
-			<DialogContent className="drop-shadow-md border-neutral-700 bg-neutral-800">
-				<DialogTitle className="text-xl text-center font-bold text-white">{title}</DialogTitle>
+			<DialogContent className='border-neutral-700 bg-neutral-800 drop-shadow-md'>
+				<DialogTitle className='text-center text-xl font-bold text-white'>{title}</DialogTitle>
 
-				<DialogDescription className="leading-normal text-center text-white">{description}</DialogDescription>
+				<DialogDescription className='text-center leading-normal text-white'>{description}</DialogDescription>
 
 				<div>{children}</div>
 			</DialogContent>

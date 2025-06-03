@@ -25,7 +25,7 @@ export const AccountContent = () => {
 		setLoading(true)
 
 		try {
-			const { url, error } = await postData({
+			const { url } = await postData({
 				url: '/api/create-portal-link',
 			})
 			window.location.assign(url)
@@ -39,14 +39,14 @@ export const AccountContent = () => {
 	}
 
 	return (
-		<div className="mb-7 px-6">
+		<div className='mb-7 px-6'>
 			{!subscription && (
-				<div className="flex flex-col items-center gap-y-4">
-					<p className="text-white text-center">No active plan</p>
+				<div className='flex flex-col items-center gap-y-4'>
+					<p className='text-center text-white'>No active plan</p>
 
 					<Button
 						onClick={subscribeModal.onOpen}
-						className="w-75 rounded-full bg-green-500 hover:bg-neutral-500 text-black hover:text-white transition ease-in-out duration-300"
+						className='w-75 rounded-full bg-green-500 text-black transition duration-300 ease-in-out hover:bg-neutral-500 hover:text-white'
 					>
 						Subscribe
 					</Button>
@@ -54,15 +54,15 @@ export const AccountContent = () => {
 			)}
 
 			{subscription && (
-				<div className="flex flex-col items-center gap-y-4">
-					<p className="text-white text-center">
+				<div className='flex flex-col items-center gap-y-4'>
+					<p className='text-center text-white'>
 						You are currently on the <b>{subscription?.prices?.products?.name}</b> plan
 					</p>
 
 					<Button
 						disabled={loading || isLoading}
 						onClick={redirectToCustomerPortal}
-						className="w-75 rounded-full bg-green-500 hover:bg-neutral-500 text-black hover:text-white transition ease-in-out duration-300"
+						className='w-75 rounded-full bg-green-500 text-black transition duration-300 ease-in-out hover:bg-neutral-500 hover:text-white'
 					>
 						Open customer portal
 					</Button>

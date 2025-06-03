@@ -96,7 +96,7 @@ export const UploadModal = () => {
 			toast.success('Track created!')
 			reset()
 			uploadModal.onClose()
-		} catch (error) {
+		} catch {
 			toast.error('Something went wrong')
 		} finally {
 			setIsLoading(false)
@@ -105,59 +105,59 @@ export const UploadModal = () => {
 
 	return (
 		<Modal
-			title="Add a track"
-			description="Upload an mp3 file"
+			title='Add a track'
+			description='Upload an mp3 file'
 			isOpen={uploadModal.isOpen}
 			onChange={onChange}
 		>
-			<form className="flex flex-col gap-y-4" onSubmit={handleSubmit(onSubmit)}>
+			<form className='flex flex-col gap-y-4' onSubmit={handleSubmit(onSubmit)}>
 				<Input
-					id="title"
+					id='title'
 					disabled={isLoading}
-					placeholder="Track title"
-					className="border-neutral-700 bg-neutral-700 text-white placeholder:text-neutral-400"
+					placeholder='Track title'
+					className='border-neutral-700 bg-neutral-700 text-white placeholder:text-neutral-400'
 					{...register('title', { required: true })}
 				/>
 
 				<Input
-					id="author"
+					id='author'
 					disabled={isLoading}
-					placeholder="Track author"
-					className="border-neutral-700 bg-neutral-700 text-white placeholder:text-neutral-400"
+					placeholder='Track author'
+					className='border-neutral-700 bg-neutral-700 text-white placeholder:text-neutral-400'
 					{...register('author', { required: true })}
 				/>
 
 				<div>
-					<div className="pb-1 text-white">Select a track file</div>
+					<div className='pb-1 text-white'>Select a track file</div>
 
 					<Input
-						id="track"
-						type="file"
+						id='track'
+						type='file'
 						disabled={isLoading}
-						accept=".mp3"
-						className="border-neutral-700 bg-neutral-700 text-neutral-400 file:text-neutral-400"
+						accept='.mp3'
+						className='border-neutral-700 bg-neutral-700 text-neutral-400 file:text-neutral-400'
 						{...register('track', { required: true })}
 					/>
 				</div>
 
 				<div>
-					<div className="pb-1 text-white">Select an image</div>
+					<div className='pb-1 text-white'>Select an image</div>
 
 					<Input
-						id="image"
-						type="file"
+						id='image'
+						type='file'
 						disabled={isLoading}
-						accept="image/*"
-						className="border-neutral-700 bg-neutral-700 text-neutral-400 file:text-neutral-400"
+						accept='image/*'
+						className='border-neutral-700 bg-neutral-700 text-neutral-400 file:text-neutral-400'
 						{...register('image', { required: true })}
 					/>
 				</div>
 
 				<Button
-					variant="secondary"
+					variant='secondary'
 					disabled={isLoading}
-					type="submit"
-					className="bg-green-500 hover:bg-neutral-500 hover:text-white transition ease-in-out duration-300"
+					type='submit'
+					className='bg-green-500 transition duration-300 ease-in-out hover:bg-neutral-500 hover:text-white'
 				>
 					Create
 				</Button>

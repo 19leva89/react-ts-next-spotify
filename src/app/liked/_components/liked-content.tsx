@@ -24,13 +24,13 @@ export const LikedContent = ({ tracks }: Props) => {
 	}, [isLoading, user, router])
 
 	if (tracks.length === 0)
-		return <div className="flex flex-col gap-y-2 w-full px-6 text-neutral-400">No liked tracks</div>
+		return <div className='flex w-full flex-col gap-y-2 px-6 text-neutral-400'>No liked tracks</div>
 
 	return (
-		<div className="flex flex-col gap-y-2 w-full p-6">
+		<div className='flex w-full flex-col gap-y-2 p-6'>
 			{tracks.map((track) => (
-				<div key={track.id} className="flex items-center gap-x-4 w-full">
-					<div className="flex-1">
+				<div key={track.id} className='flex w-full items-center gap-x-4'>
+					<div className='flex-1'>
 						<MediaItem data={track} onClick={(id: number) => onPlay(id)} />
 					</div>
 

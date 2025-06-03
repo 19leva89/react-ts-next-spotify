@@ -48,63 +48,63 @@ export const Header = ({ children, className }: Props) => {
 	}
 
 	return (
-		<div className={cn('h-fit p-6 bg-gradient-to-b from-emerald-800', className)}>
-			<div className="flex items-center justify-between w-full mb-4">
-				<div className="hidden md:flex items-center gap-x-2">
+		<div className={cn('h-fit bg-gradient-to-b from-emerald-800 p-6', className)}>
+			<div className='mb-4 flex w-full items-center justify-between'>
+				<div className='hidden items-center gap-x-2 md:flex'>
 					<Button
-						variant="default"
-						size="icon"
+						variant='default'
+						size='icon'
 						onClick={() => router.back()}
-						className="rounded-full bg-black cursor-pointer hover:opacity-75 transition ease-in-out duration-300"
+						className='cursor-pointer rounded-full bg-black transition duration-300 ease-in-out hover:opacity-75'
 					>
-						<ChevronLeftIcon size={35} className="size-6 text-white" />
+						<ChevronLeftIcon size={35} className='size-6 text-white' />
 					</Button>
 
 					<Button
-						variant="default"
-						size="icon"
+						variant='default'
+						size='icon'
 						onClick={() => router.forward()}
-						className="rounded-full bg-black cursor-pointer hover:opacity-75 transition ease-in-out duration-300"
+						className='cursor-pointer rounded-full bg-black transition duration-300 ease-in-out hover:opacity-75'
 					>
-						<ChevronRightIcon size={35} className="size-6 text-white" />
+						<ChevronRightIcon size={35} className='size-6 text-white' />
 					</Button>
 				</div>
 
-				<div className="flex items-center gap-x-2 md:hidden">
+				<div className='flex items-center gap-x-2 md:hidden'>
 					<Button
-						variant="secondary"
-						size="icon"
-						className="rounded-full bg-white cursor-pointer hover:opacity-75 transition ease-in-out duration-300"
+						variant='secondary'
+						size='icon'
+						className='cursor-pointer rounded-full bg-white transition duration-300 ease-in-out hover:opacity-75'
 					>
-						<HouseIcon size={20} className="size-5 text-black" />
+						<HouseIcon size={20} className='size-5 text-black' />
 					</Button>
 
 					<Button
-						variant="secondary"
-						size="icon"
-						className="rounded-full bg-white cursor-pointer hover:opacity-75 transition ease-in-out duration-300"
+						variant='secondary'
+						size='icon'
+						className='cursor-pointer rounded-full bg-white transition duration-300 ease-in-out hover:opacity-75'
 					>
-						<SearchIcon size={20} className="size-5 text-black" />
+						<SearchIcon size={20} className='size-5 text-black' />
 					</Button>
 				</div>
 
-				<div className="flex items-center justify-between gap-x-4">
+				<div className='flex items-center justify-between gap-x-4'>
 					{user ? (
 						<>
 							<Button
-								variant="outline"
-								size="lg"
+								variant='outline'
+								size='lg'
 								onClick={handleLogout}
-								className="rounded-full cursor-pointer transition ease-in-out duration-300"
+								className='cursor-pointer rounded-full transition duration-300 ease-in-out'
 							>
 								Logout
 							</Button>
 
 							<Button
-								variant="outline"
-								size="lg"
+								variant='outline'
+								size='lg'
 								onClick={() => router.push('/account')}
-								className="rounded-full cursor-pointer transition ease-in-out duration-300"
+								className='cursor-pointer rounded-full transition duration-300 ease-in-out'
 							>
 								<UserIcon />
 							</Button>
@@ -112,19 +112,19 @@ export const Header = ({ children, className }: Props) => {
 					) : (
 						<>
 							<Button
-								variant="ghost"
-								size="lg"
+								variant='ghost'
+								size='lg'
 								onClick={authModal.onOpen}
-								className="rounded-full text-white cursor-pointer transition ease-in-out duration-300"
+								className='cursor-pointer rounded-full text-white transition duration-300 ease-in-out'
 							>
 								Sign Up
 							</Button>
 
 							<Button
-								variant="outline"
-								size="lg"
+								variant='outline'
+								size='lg'
 								onClick={authModal.onOpen}
-								className="rounded-full cursor-pointer transition ease-in-out duration-300"
+								className='cursor-pointer rounded-full transition duration-300 ease-in-out'
 							>
 								Log In
 							</Button>

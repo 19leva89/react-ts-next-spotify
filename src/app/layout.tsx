@@ -23,9 +23,9 @@ export default async function RootLayout({ children }: PropsWithChildren) {
 	const products = await getActiveProductsWithPrices()
 
 	return (
-		<html lang="en" suppressHydrationWarning>
+		<html lang='en' suppressHydrationWarning>
 			<body className={font.className}>
-				<Toaster position="bottom-right" expand={false} richColors />
+				<Toaster position='bottom-right' expand={false} richColors />
 
 				<SupabaseProvider>
 					<UserProvider>
