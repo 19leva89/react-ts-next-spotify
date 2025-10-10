@@ -2,11 +2,11 @@
 
 import { toast } from 'sonner'
 import { useState } from 'react'
+import { useRouter } from 'next/navigation'
 
 import { Button } from '@/components/ui'
 import { postData } from '@/lib/helpers'
 import { useUser } from '@/hooks/use-user'
-import { getStripe } from '@/lib/stripe-client'
 import { Modal } from '@/components/shared/modals'
 import { Price, ProductWithPrice } from '@/app/types'
 import { useSubscribeModal } from '@/hooks/use-subscribe-modal'
@@ -26,6 +26,7 @@ const formatPrice = (price: Price) => {
 }
 
 export const SubscribeModal = ({ products }: Props) => {
+	const router = useRouter()
 	const subscribeModal = useSubscribeModal()
 
 	const { user, subscription, isLoading } = useUser()
@@ -50,17 +51,20 @@ export const SubscribeModal = ({ products }: Props) => {
 		}
 
 		try {
-			const { sessionId } = await postData({
+			const { url } = await postData({
 				url: '/api/create-checkout-session',
 				data: { price },
 			})
 
-			const stripe = await getStripe()
-			stripe?.redirectToCheckout({ sessionId })
-		} catch (error) {
+			if (!url) {
+				throw new Error('Failed to create checkout session')
+			}
+
+			router.push(url)
+		} catch (error: Error | any) {
 			console.error(error)
 
-			toast.error((error as Error)?.message)
+			toast.error(error?.message || 'Subscription failed—please try again')
 		} finally {
 			setPriceIdLoading(undefined)
 		}

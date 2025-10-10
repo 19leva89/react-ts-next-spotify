@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { PropsWithChildren } from 'react'
 import { Figtree } from 'next/font/google'
+import { Analytics } from '@vercel/analytics/next'
 
 import { Toaster } from '@/components/ui'
 import { Player, Sidebar } from '@/components/shared'
@@ -25,8 +26,6 @@ export default async function RootLayout({ children }: PropsWithChildren) {
 	return (
 		<html lang='en' suppressHydrationWarning>
 			<body className={font.className}>
-				<Toaster position='bottom-right' expand={false} richColors />
-
 				<SupabaseProvider>
 					<UserProvider>
 						<ModalProvider products={products} />
@@ -36,6 +35,11 @@ export default async function RootLayout({ children }: PropsWithChildren) {
 						<Player />
 					</UserProvider>
 				</SupabaseProvider>
+
+				<Toaster position='bottom-right' expand={false} richColors />
+
+				{/* Allow track page views for Vercel */}
+				<Analytics />
 			</body>
 		</html>
 	)

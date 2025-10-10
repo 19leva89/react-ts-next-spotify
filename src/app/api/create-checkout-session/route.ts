@@ -24,27 +24,27 @@ export async function POST(request: NextRequest) {
 		})
 
 		const session = await stripe.checkout.sessions.create({
-			success_url: accountUrl,
-			cancel_url: homeUrl,
-			payment_method_types: ['card'],
 			mode: 'subscription',
-			billing_address_collection: 'auto',
-			customer,
+			payment_method_types: ['card'],
 			line_items: [
 				{
 					price: price.id,
 					quantity,
 				},
 			],
+			billing_address_collection: 'auto',
+			customer,
 			allow_promotion_codes: true,
 			subscription_data: {
 				metadata,
 			},
+			success_url: accountUrl,
+			cancel_url: homeUrl,
 		})
 
-		return NextResponse.json({ sessionId: session.id })
-	} catch (error: any) {
-		console.error(error)
+		return NextResponse.json({ url: session.url })
+	} catch (error) {
+		console.error('Checkout session creation failed:', error)
 
 		return new NextResponse('Internal error', { status: 500 })
 	}
