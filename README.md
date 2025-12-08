@@ -7,7 +7,7 @@ Animation and Interaction:
 Core Technologies:
 - React 19
 - TypeScript
-- Next 15 (framework)
+- Next 16 (framework)
 
 Data Fetching and State Management:
 - Axios (sending requests to backend)
